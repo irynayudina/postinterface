@@ -1,2 +1,2 @@
-let calculateddeliveryCost = [0];
+let calculateddeliveryCost = [0, 0];
 export default calculateddeliveryCost;

@@ -58,11 +58,10 @@ const Calculator = () => {
             }
         }
         if(correctFormCalculator === true){
-            if(calculateddeliveryCost[0] > 40){                
-                setCostShow(calculateddeliveryCost[0]);
+            if((calculateddeliveryCost[0] + calculateddeliveryCost[1]) > 40){                
+                setCostShow((calculateddeliveryCost[0] + calculateddeliveryCost[1]));
             } else{ setCostShow(40);}
             console.log(costShow);
-            // (в*ш*д * 10 + вага *8 + вартість*0,01) * кількість * документи1 \посилка1,1 \палети1,5 \шини та диски 2
         }
         console.log("form is correct: "+ correctFormCalculator);
     }

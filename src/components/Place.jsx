@@ -112,8 +112,49 @@ const Place = (props) =>{
     }, [cost]);
     
     const [type, setType] = useState(''); 
-    const [checked, setChecked] = useState(false)
-    const handleClick = () => setChecked(!checked)
+
+    const [pack, setPack] = useState(0);
+    const [checked, setChecked] = useState(true)
+    function handleClick(){
+        if(checkPack.current.checked){setChecked(true)}else{setChecked(false)}
+        if(checked){
+            if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 6300){
+                calculateddeliveryCost[1] = 10;
+            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
+                calculateddeliveryCost[1] = 20;
+            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
+                calculateddeliveryCost[1] = 40;
+            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
+                calculateddeliveryCost[1] = 80;
+            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
+                calculateddeliveryCost[1] = 100;
+            }                
+        }else{
+            if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 6300){
+                calculateddeliveryCost[1] = 0;
+            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
+                calculateddeliveryCost[1] = 0;
+            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
+                calculateddeliveryCost[1] = 0;
+            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
+                calculateddeliveryCost[1] = 0;
+            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
+                calculateddeliveryCost[1] = 0;
+            }    
+        }
+        console.log("cost with or without pack");
+        setPack(calculateddeliveryCost[1]);
+        veryfyHandler();
+        console.log("the pack "+pack);
+        console.log(calculateddeliveryCost[1]);
+    }
+    useEffect(() => {
+        handleClick();
+    }, [checked]);
+    useEffect(() => {
+        handleClick();
+    }, [pack]);
+
     function veryfyHandler(){
         for(var i = 0; i < correctInputPlace.length; i++){
             if(correctInputPlace[i] === false){
@@ -125,33 +166,8 @@ const Place = (props) =>{
             }
         }
         if(correctInput[props.id] === true){
-            calculateddeliveryCost[0] = (((parseInt(height,10)*parseInt(width,10)*parseInt(len,10)*0.1 + parseInt(weight,10)*0.8) * parseInt(quantity,10) + parseInt(cost,10)+0.001));
-            
-            if(checkPack.current.checked){
-                if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) < 6300){
-                    calculateddeliveryCost[0] += 10;
-                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
-                    calculateddeliveryCost[0] += 20;
-                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
-                    calculateddeliveryCost[0] += 40;
-                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
-                    calculateddeliveryCost[0] += 80;
-                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
-                    calculateddeliveryCost[0] += 100;
-                }                
-            }else{
-                if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) < 6300){
-                    calculateddeliveryCost[0] -= 10;
-                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
-                    calculateddeliveryCost[0] -= 20;
-                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
-                    calculateddeliveryCost[0] -= 40;
-                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
-                    calculateddeliveryCost[0] -= 80;
-                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
-                    calculateddeliveryCost[0] -= 100;
-                }    
-            }
+            calculateddeliveryCost[0] = ((parseInt(weight,10)*10 * parseInt(quantity,10) + parseInt(cost,10)+0.001));
+            console.log("the fuck "+pack);
         }
     }
     const checkPack= useRef();
@@ -165,13 +181,13 @@ const Place = (props) =>{
         <option value="1.5">Палети</option>
         <option value="2">Шини та диски</option>
         </select><br /><div className="line"></div>                        
-        <label htmlFor="">Вага(кг)</label><input type="number" min="1" className="weight" value={weight} onChange={event => setWeight(event.target.value)} style={{backgroundColor: weightbgc}}/>
-        <label htmlFor="">Ширина(см)</label><input type="number" min="1" className="width" value={width} onChange={event => setWidth(event.target.value)} style={{backgroundColor: widthbgc}}/>
-        <label htmlFor="">Довжина(см)</label><input type="number" min="1" className="length" value={len} onChange={event => setLen(event.target.value)} style={{backgroundColor: lenbgc}}/>
-        <label htmlFor="">Висота(см)</label><input type="number" min="1" className="height" value={height} onChange={event => setHeight(event.target.value)} style={{backgroundColor: heightbgc}}/><br /><div className="line"></div>
-        <label htmlFor="">Кількість</label><input type="number" min="1" className="quantity" value={quantity} onChange={event => setQuantity(event.target.value)} style={{backgroundColor: quantitybgc}}/>
-        <label htmlFor="">Вартість(грн)</label><input type="number" min="1" className="cost" value={cost} onChange={event => setCost(event.target.value)} style={{backgroundColor: costbgc}}/><br /><div className="line"></div>
-        <input type="checkbox"  id="pack" ref={checkPack}/><p>Пакування</p>
+        <label htmlFor="">Вага(кг)</label><input type="number" min="1" max="30" className="weight" value={weight} onChange={event => setWeight(event.target.value)} style={{backgroundColor: weightbgc}}/>
+        <label htmlFor="">Ширина(см)</label><input type="number" min="1" max="100" className="width" value={width} onChange={event => setWidth(event.target.value)} style={{backgroundColor: widthbgc}}/>
+        <label htmlFor="">Довжина(см)</label><input type="number" min="1" max="100" className="length" value={len} onChange={event => setLen(event.target.value)} style={{backgroundColor: lenbgc}}/>
+        <label htmlFor="">Висота(см)</label><input type="number" min="1" max="100" className="height" value={height} onChange={event => setHeight(event.target.value)} style={{backgroundColor: heightbgc}}/><br /><div className="line"></div>
+        <label htmlFor="">Кількість</label><input type="number" min="1" max="10" className="quantity" value={quantity} onChange={event => setQuantity(event.target.value)} style={{backgroundColor: quantitybgc}}/>
+        <label htmlFor="">Вартість(грн)</label><input type="number" min="1" max="50000" className="cost" value={cost} onChange={event => setCost(event.target.value)} style={{backgroundColor: costbgc}}/><br /><div className="line"></div>
+        <input type="checkbox"  id="pack" ref={checkPack} onClick={handleClick} checked={checked}/><p>Пакування</p>
     </div>
     );
 };
