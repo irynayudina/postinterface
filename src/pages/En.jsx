@@ -3,7 +3,7 @@ import Button from '../components/Button';
 import Place from '../components/Place';
 const En = () => {
     return(
-        <div className="en">
+        <div className="the-root-body"><div className="en">
             <div className="plain-form">
                 <h2>Створення електронної накладної</h2>
                 <form action="">
@@ -25,7 +25,7 @@ const En = () => {
                     <Button name={"Сформувати накладну"}/>    
                 </form>
             </div> 
-        </div>
+        </div></div>
     );
 };
 export default En;

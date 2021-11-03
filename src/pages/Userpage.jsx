@@ -1,7 +1,7 @@
 import React from 'react';
 const Userpage = (props) =>{
     return(
-        <div className="userpage" >
+        <div className="the-root-body"><div className="userpage" >
             <div className="side">
                 <div className="user">
                     <h2>Прізвище Ім’я</h2>
@@ -13,7 +13,7 @@ const Userpage = (props) =>{
                 <div className="functions"></div>
             </div>
         </div> 
-        
+        </div>
     );
 };
 export default Userpage;

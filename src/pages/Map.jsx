@@ -1,11 +1,9 @@
 import React from 'react';
-import ViewArray from '../globals/ViewArray';
 const Map = () => {
-    if(ViewArray[3]){
-        return(
-            <div className="map">         
-        <h2>Карта відділень</h2>
-        <p>Laborum ad Lorem amet Lorem officia. Elit dolore reprehenderit velit ea culpa labore non fugiat irure aliqua ex. Culpa tempor nisi sit velit. Commodo voluptate sint consequat velit proident ullamco voluptate ea velit officia dolore anim. Eu anim mollit aute proident cupidatat deserunt consectetur fugiat consequat magna. Ut laboris ipsum cupidatat consectetur nisi. Ea consectetur nulla mollit Lorem tempor adipisicing.
+    return(
+        <div className="the-root-body"><div className="view-main">         
+    <h2>Карта відділень</h2>
+    <p>Laborum ad Lorem amet Lorem officia. Elit dolore reprehenderit velit ea culpa labore non fugiat irure aliqua ex. Culpa tempor nisi sit velit. Commodo voluptate sint consequat velit proident ullamco voluptate ea velit officia dolore anim. Eu anim mollit aute proident cupidatat deserunt consectetur fugiat consequat magna. Ut laboris ipsum cupidatat consectetur nisi. Ea consectetur nulla mollit Lorem tempor adipisicing.
 
 Dolore cupidatat occaecat dolor mollit fugiat minim ullamco commodo minim eiusmod consectetur. Deserunt eiusmod tempor culpa cillum minim voluptate non do consectetur commodo officia consequat proident Lorem. Aliquip esse cupidatat cupidatat cupidatat nisi enim officia veniam consectetur tempor id aliqua magna. Officia veniam consequat aliqua nisi id cillum excepteur et Lorem dolore incididunt enim esse nulla.
 
@@ -24,12 +22,8 @@ Quis consequat duis occaecat amet. Labore ad sint et veniam officia in eiusmod d
 Aliqua incididunt fugiat enim amet nisi aute. Officia ad consequat officia excepteur aute duis eu. Quis culpa excepteur nisi ad commodo esse esse cupidatat. Nisi aute deserunt et velit eiusmod officia ad quis. Sunt labore amet Lorem cillum veniam officia eu cupidatat culpa ea nisi laborum exercitation. Ipsum aute cupidatat esse dolor consectetur anim nisi exercitation duis nulla duis officia duis aliquip.
 
 Ea incididunt eiusmod enim veniam id esse ullamco dolor nulla nisi aliquip veniam adipisicing enim. Laboris aliquip ea id dolor id minim laborum est. Dolore veniam esse mollit consectetur cillum in aliqua mollit sunt non. Reprehenderit pariatur irure exercitation dolor minim labore commodo ad est fugiat ad cupidatat dolor eu.
-        </p>
-        </div>
-        );
-    }
-    else{
-        return("");
-    }  
+    </p>
+    </div></div>
+    ); 
 };
 export default Map;

@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Button from '../components/Button';
 import Place from '../components/Place';
 import correctInput from '../globals/CorrectInput';
-import ViewArray from '../globals/ViewArray';
 import calculateddeliveryCost from '../globals/CalculateddeliveryCost';
 const Calculator = () => {    
     let correctFormCalculator = false;
@@ -47,7 +46,7 @@ const Calculator = () => {
     useEffect(() => {
         citytoverifyer();
     }, [cityto]);
-
+    const [costShow, setCostShow] = useState(0);
     function veryfyHandler(){        
         for(var i = 0; i < correctInput.length; i++){
             if(correctInput[i] === false){
@@ -59,12 +58,15 @@ const Calculator = () => {
             }
         }
         if(correctFormCalculator === true){
-            calculateddeliveryCost[0] += 1;
+            if(calculateddeliveryCost[0] > 40){                
+                setCostShow(calculateddeliveryCost[0]);
+            } else{ setCostShow(40);}
+            console.log(costShow);
             // (в*ш*д * 10 + вага *8 + вартість*0,01) * кількість * документи1 \посилка1,1 \палети1,5 \шини та диски 2
         }
         console.log("form is correct: "+ correctFormCalculator);
     }
-    const [places, setPlaces] = useState([{id: 2, dis:{display: 'none'}}, {id: 3}]);
+    const [places, setPlaces] = useState([{id: 2, dis:{display: 'none'}}]);
     function addPlace(){
         correctInput.push(false);
         setPlaces([...places, {id: (places[places.length - 1].id + 1)}]);
@@ -78,30 +80,25 @@ const Calculator = () => {
         }
     }
         
-    if(ViewArray[8]){
-        return(
-            <div className="calculator"> 
-            <div className="plain-form">
-                <h2>Калькулятор вартості доставки</h2>
-                <form action="">
-                    <label htmlFor="">Місто</label><input type="text" className="fromCity" value={cityfrom} onChange={event => setCityfrom(event.target.value)} style={{backgroundColor: cityfrombgc}}/><p className="error" style={{left: "480px"}}>{typeErrorcf}</p>
-                    <label htmlFor="">Місто</label><input type="text" className="toCity" value={cityto} onChange={event => setCityto(event.target.value)} style={{backgroundColor: citytobgc}}/><p className="error" style={{left: "680px"}}>{typeErrorct}</p>
-                    {
-                        places.map((post)=><Place id={post.id} remove={removePlace} dis={post.dis}/>)
-                    }
-                    <p className="clickable" onClick={addPlace}>+ додати місце</p><br />
-                    <input type="checkbox"  className="keep"/><p>Зберігання протягом 5 днів</p>
-                    <div className="botCalc">                     
-                        <h2>Вартість: </h2><div className="contedCost">{calculateddeliveryCost[0].toFixed(0)}</div><p> грн.</p>
-                    </div>
-                    <Button name={"Вирахувати вартість"} onClick={veryfyHandler}/>                      
-                </form>
-            </div>
+    return(
+        <div className="the-root-body"><div className="calculator"> 
+        <div className="plain-form">
+            <h2>Калькулятор вартості доставки</h2>
+            <form action="">
+                <label htmlFor="">Місто</label><input type="text" className="fromCity" value={cityfrom} onChange={event => setCityfrom(event.target.value)} style={{backgroundColor: cityfrombgc}}/><p className="error" style={{top: "-20px", left: "-150px"}}>{typeErrorcf}</p>
+                <label htmlFor="">Місто</label><input type="text" className="toCity" value={cityto} onChange={event => setCityto(event.target.value)} style={{backgroundColor: citytobgc}}/><p className="error" style={{top: "-20px", left: "-150px"}}>{typeErrorct}</p>
+                {
+                    places.map((post)=><Place id={post.id} remove={removePlace} dis={post.dis}/>)
+                }
+                <p className="clickable" onClick={addPlace}>+ додати місце</p><br />
+                <input type="checkbox"  className="keep"/><p>Зберігання протягом 5 днів</p>
+                <div className="botCalc">                     
+                    <h2>Вартість: </h2><input className="contedCost" value={costShow.toFixed(0)} disabled="true" /><p> грн.</p>
+                </div>
+                <Button name={"Вирахувати вартість"} onClick={veryfyHandler}/>                      
+            </form>
         </div>
-        );
-    }
-    else{
-        return("");
-    } 
+    </div></div>
+    );
 };
 export default Calculator;
