@@ -1,2 +1,2 @@
- const correctInput = [false, false, false];
+ const correctInput = [true, true, false];
  export default correctInput;

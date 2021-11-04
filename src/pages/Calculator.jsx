@@ -1,51 +1,13 @@
 import React from 'react';
+import { useRef } from 'react';
 import {useEffect} from 'react';
 import { useState } from 'react';
 import Button from '../components/Button';
 import Place from '../components/Place';
 import correctInput from '../globals/CorrectInput';
-import {calculateddeliveryCost, thefinalcost} from '../globals/CalculateddeliveryCost';
+import {calculateddeliveryCost, outerCalculate} from '../globals/CalculateddeliveryCost';
 const Calculator = () => {    
-    let correctFormCalculator = false;
-
-    const [cityfrom, setCityfrom] = useState('');    
-    const [cityfrombgc, setCityfrombgc] = useState("white");
-    const [typeErrorcf, setTypeErrorcf] = useState('');
-    function cityfromverifyer(){ 
-        if(cityfrom.match(/^[a-zA-Z]+$/)){
-            correctInput[0]= true;    
-            setTypeErrorcf('');
-            setCityfrombgc("white");
-        }
-        else{
-            // setCorrectInput(correctInput[0] = false);
-            correctInput[0]= false; 
-            setTypeErrorcf('Дозволені лише букви');
-            setCityfrombgc("#f5c1c5");
-        }            
-    }
-    useEffect(() => {
-        cityfromverifyer();
-    }, [cityfrom]); 
-
-    const [cityto, setCityto] = useState('');  
-    const [citytobgc, setCitytobgc] = useState("white");
-    const [typeErrorct, setTypeErrorct] = useState('');
-    function citytoverifyer(){
-        if(cityto.match(/^[a-zA-Z]+$/)){
-            correctInput[1] = true;
-            setTypeErrorct('');
-            setCitytobgc("white");
-        }
-        else{
-            correctInput[1] = false;
-            setTypeErrorct('Дозволені лише букви');
-            setCitytobgc("#f5c1c5");
-        }
-    }
-    useEffect(() => {
-        citytoverifyer();
-    }, [cityto]);
+    let correctFormCalculator = false;    
     const [costShow, setCostShow] = useState(0);
     function veryfyHandler(){        
         for(var i = 0; i < correctInput.length; i++){
@@ -58,13 +20,22 @@ const Calculator = () => {
             }
         }
         if(correctFormCalculator === true){
-            let thefinalcost = 0;//city difference and 5 days storing
+            let thefinalcost = 0;
             let placecost = 0;
             for(var i = 0; i < calculateddeliveryCost.length; i+=3){
                 placecost = (calculateddeliveryCost[i]+calculateddeliveryCost[i+1])*calculateddeliveryCost[i+2];
                 thefinalcost += placecost;
                 console.log(calculateddeliveryCost);
             }
+            if(checkedkeep){
+                outerCalculate[1] = thefinalcost/10;
+                thefinalcost += outerCalculate[1];
+            }
+            let distance = Math.abs( outerCalculate[0] - outerCalculate[2]);
+            thefinalcost = thefinalcost + (thefinalcost * distance * 0.1);
+            console.log(outerCalculate[0]);
+            console.log(outerCalculate[2]);
+            console.log(distance);
             if(thefinalcost > 40){                
                 setCostShow(thefinalcost);
             } else{ setCostShow(40);}
@@ -92,19 +63,103 @@ const Calculator = () => {
         }
         console.log("costs: "+calculateddeliveryCost);
     }
+    const checkKeep = useRef();
+    const [checkedkeep, setcheckedkeep] = useState(false);
+    function handleKeep(){
+        if(checkKeep.current.checked){setcheckedkeep(true)}else{setcheckedkeep(false)}
         
+    }
+    useEffect(() => {
+        handleKeep();
+    }, [checkedkeep]);
+    const [cf, setCf] = useState(''); 
+    const [ct, setCt] = useState(''); 
+    const selectedCf = useRef();
+    const selectedCt = useRef();
+    function handleCf(event){
+        setCf(event.target.value)
+        if(selectedCf.current.value === "vin"){
+            outerCalculate[0] = 1;
+        }if(selectedCf.current.value === "dni"){
+            outerCalculate[0] = 2;
+        }if(selectedCf.current.value === "zap"){
+            outerCalculate[0] = 3;
+        }if(selectedCf.current.value === "kiev"){
+            outerCalculate[0] = 4;
+        }if(selectedCf.current.value === "horn"){
+            outerCalculate[0] = 5;
+        }if(selectedCf.current.value === "lviv"){
+            outerCalculate[0] = 6;
+        }if(selectedCf.current.value === "myk"){
+            outerCalculate[0] = 7;
+        }if(selectedCf.current.value === "od"){
+            outerCalculate[0] = 8;
+        }if(selectedCf.current.value === "pol"){
+            outerCalculate[0] = 9;
+        }if(selectedCf.current.value === "har"){
+            outerCalculate[0] = 10;
+        }
+    }
+    function handleCt(event){
+        setCt(event.target.value);
+        if(selectedCt.current.value === "vin"){
+            outerCalculate[2] = 1;
+        }if(selectedCt.current.value === "dni"){
+            outerCalculate[2] = 2;
+        }if(selectedCt.current.value === "zap"){
+            outerCalculate[2] = 3;
+        }if(selectedCt.current.value === "kiev"){
+            outerCalculate[2] = 4;
+        }if(selectedCt.current.value === "horn"){
+            outerCalculate[2] = 5;
+        }if(selectedCt.current.value === "lviv"){
+            outerCalculate[2] = 6;
+        }if(selectedCt.current.value === "myk"){
+            outerCalculate[2] = 7;
+        }if(selectedCt.current.value === "od"){
+            outerCalculate[2] = 8;
+        }if(selectedCt.current.value === "pol"){
+            outerCalculate[2] = 9;
+        }if(selectedCt.current.value === "har"){
+            outerCalculate[2] = 10;
+        }
+    }
     return(
         <div className="the-root-body"><div className="calculator"> 
         <div className="plain-form">
             <h2>Калькулятор вартості доставки</h2>
             <form action="">
-                <label htmlFor="">Місто</label><input type="text" className="fromCity" value={cityfrom} onChange={event => setCityfrom(event.target.value)} style={{backgroundColor: cityfrombgc}}/><p className="error" style={{top: "-20px", left: "-150px"}}>{typeErrorcf}</p>
-                <label htmlFor="">Місто</label><input type="text" className="toCity" value={cityto} onChange={event => setCityto(event.target.value)} style={{backgroundColor: citytobgc}}/><p className="error" style={{top: "-20px", left: "-150px"}}>{typeErrorct}</p>
+                <label htmlFor="">Місто</label>
+                <select onClick={handleCf } ref={selectedCf} onChange={event => setCf(event.target.value)} name="select" className="fromCity"> 
+                <option value="vin">Вінниця</option>
+                <option value="dni" selected>Дніпро</option>
+                <option value="zap">Запоріжжя</option>
+                <option value="kiev">Київ</option>
+                <option value="horn">Кривий Ріг</option>
+                <option value="lviv">Львів</option>
+                <option value="myk">Миколаїв</option>
+                <option value="od">Одеса</option>
+                <option value="pol">Полтава</option>
+                <option value="har">Харків</option>
+                </select>                
+                <label htmlFor="">Місто</label>
+                <select onClick={handleCt } ref={selectedCt} onChange={event => setCt(event.target.value)} name="select" className="fromCity"> 
+                <option value="vin">Вінниця</option>
+                <option value="dni" selected>Дніпро</option>
+                <option value="zap">Запоріжжя</option>
+                <option value="kiev">Київ</option>
+                <option value="horn">Кривий Ріг</option>
+                <option value="lviv">Львів</option>
+                <option value="myk">Миколаїв</option>
+                <option value="od">Одеса</option>
+                <option value="pol">Полтава</option>
+                <option value="har">Харків</option>
+                </select>                
                 {
                     places.map((post)=><Place id={post.id} remove={removePlace} dis={post.dis}/>)
                 }
                 <p className="clickable" onClick={addPlace}>+ додати місце</p><br />
-                <input type="checkbox"  className="keep"/><p>Зберігання протягом 5 днів</p>
+                <input type="checkbox"  id="pack" ref={checkKeep} onClick={handleKeep} checked={checkedkeep} className="keep"/><p>Зберігання протягом 5 днів</p>
                 <div className="botCalc">                     
                     <h2>Вартість: </h2><input className="contedCost" value={costShow.toFixed(0)} disabled="true" /><p> грн.</p>
                 </div>

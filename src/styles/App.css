@@ -165,6 +165,7 @@ p.small{
 }
 .bot-menue .track {
     background: #0C3823;
+    color: white !important;
     border-radius: 0px 40px 40px 0px;
     width: 300px;
     height: 60px;

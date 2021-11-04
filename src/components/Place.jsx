@@ -125,7 +125,6 @@ const Place = (props) =>{
         if(selectedType.current.value === 'disk'){
             calculateddeliveryCost[(props.id - 2)*3 + 2] = 1.3;
         }
-        // if(selectedType.current.value)
         console.log(selectedType.current.value);
     }
     const [pack, setPack] = useState(0);
@@ -146,15 +145,15 @@ const Place = (props) =>{
             }                
         }else{
             if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 6300){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 0;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 10;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 0;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 20;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 0;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 40;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 0;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 80;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 0;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 100;
             }    
         }
         console.log("cost with or without pack");
