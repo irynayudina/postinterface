@@ -5,13 +5,13 @@ import correctInput from '../globals/CorrectInput';
 import correctInputPlace from "../globals/CorrectPlaceInput";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons';
-import calculateddeliveryCost from '../globals/CalculateddeliveryCost';
+import {calculateddeliveryCost} from '../globals/CalculateddeliveryCost';
 const Place = (props) =>{   
     
     const [weight, setWeight] = useState(''); 
     const [weightbgc, setWeightbgc] = useState("white");
     function weightverifyer(){
-        if(weight.match(/^[0-9]+\.+[0-9]+$/) || weight.match(/^[0-9]+$/)){
+        if(weight.match(/^[0-9]+\.+[0-9]+$/) || weight.match(/^[0-9]+$/) && weight <= 30){
             correctInputPlace[0] = true;
             console.log(correctInputPlace[0]);
             setWeightbgc("white");
@@ -29,7 +29,7 @@ const Place = (props) =>{
     const [width, setWidth] = useState('');
     const [widthbgc, setWidthbgc] = useState("white");
     function widthverifyer(){
-        if(width.match(/^[0-9]+\.+[0-9]+$/) || width.match(/^[0-9]+$/)){
+        if(width.match(/^[0-9]+\.+[0-9]+$/) || width.match(/^[0-9]+$/) && width <= 100){
             correctInputPlace[1] = true;
             setWidthbgc("white");
         }
@@ -46,7 +46,7 @@ const Place = (props) =>{
     const [len, setLen] = useState('');
     const [lenbgc, setLenbgc] = useState("white");
     function lenverifyer(){
-        if(len.match(/^[0-9]+\.+[0-9]+$/) || len.match(/^[0-9]+$/)){
+        if(len.match(/^[0-9]+\.+[0-9]+$/) || len.match(/^[0-9]+$/) && len <= 100){
             correctInputPlace[2] = true;
             setLenbgc("white");
         }
@@ -63,7 +63,7 @@ const Place = (props) =>{
     const [height, setHeight] = useState('');
     const [heightbgc, setHeightbgc] = useState("white");
     function heightverifyer(){
-        if(height.match(/^[0-9]+\.+[0-9]+$/) || height.match(/^[0-9]+$/)){
+        if(height.match(/^[0-9]+\.+[0-9]+$/) || height.match(/^[0-9]+$/) && height <= 100){
             correctInputPlace[3] = true;
             setHeightbgc("white");
         }
@@ -80,7 +80,7 @@ const Place = (props) =>{
     const [quantity, setQuantity] = useState('');
     const [quantitybgc, setQuantitybgc] = useState("white");
     function quantityverifyer(){
-        if(quantity.match(/^[0-9]+\.+[0-9]+$/) || quantity.match(/^[0-9]+$/)){
+        if(quantity.match(/^[0-9]+\.+[0-9]+$/) || quantity.match(/^[0-9]+$/) && quantity <= 10){
             correctInputPlace[4] = true;
             setQuantitybgc("white");
         }
@@ -97,7 +97,7 @@ const Place = (props) =>{
     const [cost, setCost] = useState('');
     const [costbgc, setCostbgc] = useState("white");
     function costverifyer(){
-        if(cost.match(/^[0-9]+\.+[0-9]+$/) || cost.match(/^[0-9]+$/)){
+        if(cost.match(/^[0-9]+\.+[0-9]+$/) || cost.match(/^[0-9]+$/) && cost <= 50000){
             correctInputPlace[5] = true;
             setCostbgc("white");
         }
@@ -112,41 +112,56 @@ const Place = (props) =>{
     }, [cost]);
     
     const [type, setType] = useState(''); 
-
+    function handleType(){
+        if(selectedType.current.value === 'doc'){
+            calculateddeliveryCost[(props.id - 2)*3 + 2] = 1;
+        }
+        if(selectedType.current.value === 'pos'){
+            calculateddeliveryCost[(props.id - 2)*3 + 2] = 1.1;
+        }
+        if(selectedType.current.value === 'pal'){
+            calculateddeliveryCost[(props.id - 2)*3 + 2] = 1.2;
+        }
+        if(selectedType.current.value === 'disk'){
+            calculateddeliveryCost[(props.id - 2)*3 + 2] = 1.3;
+        }
+        // if(selectedType.current.value)
+        console.log(selectedType.current.value);
+    }
     const [pack, setPack] = useState(0);
-    const [checked, setChecked] = useState(true)
+    const [checked, setChecked] = useState(false)
     function handleClick(){
         if(checkPack.current.checked){setChecked(true)}else{setChecked(false)}
         if(checked){
             if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 6300){
-                calculateddeliveryCost[1] = 10;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 20;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
-                calculateddeliveryCost[1] = 20;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 40;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
-                calculateddeliveryCost[1] = 40;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 80;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
-                calculateddeliveryCost[1] = 80;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 160;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
-                calculateddeliveryCost[1] = 100;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 200;
             }                
         }else{
             if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 6300){
-                calculateddeliveryCost[1] = 0;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 0;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
-                calculateddeliveryCost[1] = 0;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 0;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
-                calculateddeliveryCost[1] = 0;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 0;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
-                calculateddeliveryCost[1] = 0;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 0;
             }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
-                calculateddeliveryCost[1] = 0;
+                calculateddeliveryCost[(props.id - 2)*3 + 1] = 0;
             }    
         }
         console.log("cost with or without pack");
-        setPack(calculateddeliveryCost[1]);
+        setPack(calculateddeliveryCost[(props.id - 2)*3 + 1]);
         veryfyHandler();
         console.log("the pack "+pack);
-        console.log(calculateddeliveryCost[1]);
+        console.log(calculateddeliveryCost[(props.id - 2)*3 + 1]);
     }
     useEffect(() => {
         handleClick();
@@ -166,20 +181,21 @@ const Place = (props) =>{
             }
         }
         if(correctInput[props.id] === true){
-            calculateddeliveryCost[0] = ((parseInt(weight,10)*10 * parseInt(quantity,10) + parseInt(cost,10)+0.001));
+            calculateddeliveryCost[(props.id - 2)*3] = ((parseInt(weight,10)*2 * parseInt(quantity,10) + parseInt(cost,10)+0.001));
             console.log("the fuck "+pack);
         }
     }
     const checkPack= useRef();
+    const selectedType = useRef();
     return(
         <div className="place" id={props.id} >
         <h3>Характеристики</h3>
         <div className="closeplace"><FontAwesomeIcon icon={faWindowClose} color="black" onClick={() => props.remove(props)} style={props.dis}/></div>
-        <label htmlFor="">Вид </label><select name="select" className="type" onChange={event => setType(event.target.value)}> 
-        <option value="1">Документи</option>
-        <option value="1.1" selected>Посилка</option>
-        <option value="1.5">Палети</option>
-        <option value="2">Шини та диски</option>
+        <label htmlFor="">Вид </label><select ref={selectedType} onClick={handleType} name="select" className="type" onChange={event => setType(event.target.value)}> 
+        <option value="doc">Документи</option>
+        <option value="pos" selected>Посилка</option>
+        <option value="pal">Палети</option>
+        <option value="disk">Шини та диски</option>
         </select><br /><div className="line"></div>                        
         <label htmlFor="">Вага(кг)</label><input type="number" min="1" max="30" className="weight" value={weight} onChange={event => setWeight(event.target.value)} style={{backgroundColor: weightbgc}}/>
         <label htmlFor="">Ширина(см)</label><input type="number" min="1" max="100" className="width" value={width} onChange={event => setWidth(event.target.value)} style={{backgroundColor: widthbgc}}/>

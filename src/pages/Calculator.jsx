@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Button from '../components/Button';
 import Place from '../components/Place';
 import correctInput from '../globals/CorrectInput';
-import calculateddeliveryCost from '../globals/CalculateddeliveryCost';
+import {calculateddeliveryCost, thefinalcost} from '../globals/CalculateddeliveryCost';
 const Calculator = () => {    
     let correctFormCalculator = false;
 
@@ -58,16 +58,25 @@ const Calculator = () => {
             }
         }
         if(correctFormCalculator === true){
-            if((calculateddeliveryCost[0] + calculateddeliveryCost[1]) > 40){                
-                setCostShow((calculateddeliveryCost[0] + calculateddeliveryCost[1]));
+            let thefinalcost = 0;//city difference and 5 days storing
+            let placecost = 0;
+            for(var i = 0; i < calculateddeliveryCost.length; i+=3){
+                placecost = (calculateddeliveryCost[i]+calculateddeliveryCost[i+1])*calculateddeliveryCost[i+2];
+                thefinalcost += placecost;
+                console.log(calculateddeliveryCost);
+            }
+            if(thefinalcost > 40){                
+                setCostShow(thefinalcost);
             } else{ setCostShow(40);}
-            console.log(costShow);
-        }
+        }else{setCostShow(0);}
         console.log("form is correct: "+ correctFormCalculator);
     }
     const [places, setPlaces] = useState([{id: 2, dis:{display: 'none'}}]);
     function addPlace(){
         correctInput.push(false);
+        calculateddeliveryCost.push(0);
+        calculateddeliveryCost.push(0);
+        calculateddeliveryCost.push(1);
         setPlaces([...places, {id: (places[places.length - 1].id + 1)}]);
     }
     const removePlace = (place) => {
@@ -76,7 +85,12 @@ const Calculator = () => {
             if(i === place.id){           
                 correctInput.splice(i, 1);     
             }
+        }for(var i =0; i<calculateddeliveryCost.length; i++){
+            if(i === place.id){           
+                calculateddeliveryCost.splice(i, 3);     
+            }
         }
+        console.log("costs: "+calculateddeliveryCost);
     }
         
     return(
