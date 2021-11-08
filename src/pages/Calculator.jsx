@@ -25,7 +25,6 @@ const Calculator = () => {
             for(var i = 0; i < calculateddeliveryCost.length; i+=3){
                 placecost = (calculateddeliveryCost[i]+calculateddeliveryCost[i+1])*calculateddeliveryCost[i+2];
                 thefinalcost += placecost;
-                console.log(calculateddeliveryCost);
             }
             if(checkedkeep){
                 outerCalculate[1] = thefinalcost/10;
@@ -33,22 +32,19 @@ const Calculator = () => {
             }
             let distance = Math.abs( outerCalculate[0] - outerCalculate[2]);
             thefinalcost = thefinalcost + (thefinalcost * distance * 0.1);
-            console.log(outerCalculate[0]);
-            console.log(outerCalculate[2]);
-            console.log(distance);
             if(thefinalcost > 40){                
                 setCostShow(thefinalcost);
             } else{ setCostShow(40);}
         }else{setCostShow(0);}
         console.log("form is correct: "+ correctFormCalculator);
     }
-    const [places, setPlaces] = useState([{id: 2, dis:{display: 'none'}}]);
+    const [places, setPlaces] = useState([{id: 2, dis:{display: 'none'}, corInpArr:"correctInput"}]);
     function addPlace(){
         correctInput.push(false);
         calculateddeliveryCost.push(0);
         calculateddeliveryCost.push(0);
         calculateddeliveryCost.push(1);
-        setPlaces([...places, {id: (places[places.length - 1].id + 1)}]);
+        setPlaces([...places, {id: (places[places.length - 1].id + 1), corInpArr:"correctInput"}]);
     }
     const removePlace = (place) => {
         setPlaces(places.filter(p => p.id !== place.id));
@@ -61,7 +57,6 @@ const Calculator = () => {
                 calculateddeliveryCost.splice(i, 3);     
             }
         }
-        console.log("costs: "+calculateddeliveryCost);
     }
     const checkKeep = useRef();
     const [checkedkeep, setcheckedkeep] = useState(false);
@@ -156,7 +151,7 @@ const Calculator = () => {
                 <option value="har">Харків</option>
                 </select>                
                 {
-                    places.map((post)=><Place id={post.id} remove={removePlace} dis={post.dis}/>)
+                    places.map((post)=><Place id={post.id} remove={removePlace} dis={post.dis} corInpArr={post.corInpArr}/>)
                 }
                 <p className="clickable" onClick={addPlace}>+ додати місце</p><br />
                 <input type="checkbox"  id="pack" ref={checkKeep} onClick={handleKeep} checked={checkedkeep} className="keep"/><p>Зберігання протягом 5 днів</p>

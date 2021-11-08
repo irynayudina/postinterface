@@ -520,11 +520,13 @@ display: inline-block;
 }
 .en{
     min-height: 550px;
-    width: 100%;
+    width: 900px;
+    margin: auto;
     height: auto;
     background-color: white;
     box-sizing: border-box;
     padding-top: 40px;
+    padding-bottom: 40px;
 }
 .en .place{
     width: 700px;
@@ -572,10 +574,75 @@ display: inline-block;
     font-weight: 700;
     font-size: 14px;
 }
+.erroren{
+    position: absolute;
+    color: red;
+    font-weight: 700;
+    font-size: 14px;
+}
 .closeplace{
     position: relative;
     font-size: 18px;
     margin: 0;
     top: -18px;
     left: 650px;
+}
+.side{
+    width: 400px;
+    /* position: fixed; */
+    display: inline-block;
+    height: 650px;
+    vertical-align:top;
+}
+.view{
+    display: inline-block;
+    width: 1100px;
+    height: auto;
+    padding-bottom: 20px;
+    background-color: #66FF01;
+    margin-left: 10px;
+}
+.user{
+    padding: 30px;
+}
+.vline{
+    background-color: #66FF01;
+    width: 2px;
+    height: 700px;
+    display: inline-block;    
+    vertical-align:top;
+}
+.hline{
+    background-color: #66FF01;
+    height: 2px;
+    width: 400px;
+}
+.funcgroup{
+    margin-bottom: 20px;
+    left: 20px;
+    position: relative;
+}
+
+.funcgroup *{    
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.funcgroup p{
+    color: black !important;
+}
+.fheader{
+    background-color: #66FF01;
+    height: 48px;
+    width: 380px;    
+    font-weight: 700;
+    color: white;
+    padding: 8px;    
+    box-sizing: border-box;
+}
+.funcgroup:nth-child(2n) .fheader{
+    background-color: #0C3823;
+
+}
+.fheader h2{
+    margin: 0;
 }

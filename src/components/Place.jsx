@@ -1,19 +1,19 @@
 import React, { useRef } from "react";
 import { useState } from "react";
 import {useEffect} from 'react';
+import correctInputEn from '../globals/corinpen';
 import correctInput from '../globals/CorrectInput';
 import correctInputPlace from "../globals/CorrectPlaceInput";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons';
-import {calculateddeliveryCost} from '../globals/CalculateddeliveryCost';
-const Place = (props) =>{   
-    
+import {calculateddeliveryCost, calculateddeliveryCosten} from '../globals/CalculateddeliveryCost';
+const Place = (props) =>{ 
+    console.log(props.corInpArr +" "+props.id);
     const [weight, setWeight] = useState(''); 
     const [weightbgc, setWeightbgc] = useState("white");
     function weightverifyer(){
         if(weight.match(/^[0-9]+\.+[0-9]+$/) || weight.match(/^[0-9]+$/) && weight <= 30){
             correctInputPlace[0] = true;
-            console.log(correctInputPlace[0]);
             setWeightbgc("white");
         }
         else{
@@ -113,54 +113,101 @@ const Place = (props) =>{
     
     const [type, setType] = useState(''); 
     function handleType(){
-        if(selectedType.current.value === 'doc'){
-            calculateddeliveryCost[(props.id - 2)*3 + 2] = 1;
+        if(props.corInpArr === "correctInput"){ 
+            if(selectedType.current.value === 'doc'){
+                calculateddeliveryCost[(props.id - 2)*3 + 2] = 1;
+                console.log(props.corInpArr);
+            }
+            if(selectedType.current.value === 'pos'){
+                calculateddeliveryCost[(props.id - 2)*3 + 2] = 1.1;
+            }
+            if(selectedType.current.value === 'pal'){
+                calculateddeliveryCost[(props.id - 2)*3 + 2] = 1.2;
+            }
+            if(selectedType.current.value === 'disk'){
+                calculateddeliveryCost[(props.id - 2)*3 + 2] = 1.3;
+            }
+        }else{                    
+            if(selectedType.current.value === 'doc'){
+                calculateddeliveryCosten[(props.id - 10)*3 + 2] = 1;
+            }
+            if(selectedType.current.value === 'pos'){
+                calculateddeliveryCosten[(props.id - 10)*3 + 2] = 1.1;
+            }
+            if(selectedType.current.value === 'pal'){
+                calculateddeliveryCosten[(props.id - 10)*3 + 2] = 1.2;
+            }
+            if(selectedType.current.value === 'disk'){
+                calculateddeliveryCosten[(props.id - 10)*3 + 2] = 1.3;
+            }
         }
-        if(selectedType.current.value === 'pos'){
-            calculateddeliveryCost[(props.id - 2)*3 + 2] = 1.1;
-        }
-        if(selectedType.current.value === 'pal'){
-            calculateddeliveryCost[(props.id - 2)*3 + 2] = 1.2;
-        }
-        if(selectedType.current.value === 'disk'){
-            calculateddeliveryCost[(props.id - 2)*3 + 2] = 1.3;
-        }
-        console.log(selectedType.current.value);
+        
     }
     const [pack, setPack] = useState(0);
     const [checked, setChecked] = useState(false)
     function handleClick(){
         if(checkPack.current.checked){setChecked(true)}else{setChecked(false)}
         if(checked){
-            if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 6300){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 20;
-            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 40;
-            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 80;
-            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 160;
-            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 200;
-            }                
+            if(props.corInpArr === "correctInput"){ 
+                if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 6300){
+                    calculateddeliveryCost[(props.id - 2)*3 + 1] = 20;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
+                    calculateddeliveryCost[(props.id - 2)*3 + 1] = 40;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
+                    calculateddeliveryCost[(props.id - 2)*3 + 1] = 80;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
+                    calculateddeliveryCost[(props.id - 2)*3 + 1] = 160;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
+                    calculateddeliveryCost[(props.id - 2)*3 + 1] = 200;
+                }   
+            }else{                    
+                if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 6300){
+                    calculateddeliveryCosten[(props.id - 10)*3 + 1] = 20;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
+                    calculateddeliveryCosten[(props.id - 10)*3 + 1] = 40;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
+                    calculateddeliveryCosten[(props.id - 10)*3 + 1] = 80;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
+                    calculateddeliveryCosten[(props.id - 10)*3 + 1] = 160;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
+                    calculateddeliveryCosten[(props.id - 10)*3 + 1] = 200;
+                }   
+            }
+                         
         }else{
-            if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 6300){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 10;
-            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 20;
-            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 40;
-            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 80;
-            }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
-                calculateddeliveryCost[(props.id - 2)*3 + 1] = 100;
-            }    
+            if(props.corInpArr === "correctInput"){ 
+                if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 6300){
+                    calculateddeliveryCost[(props.id - 2)*3 + 1] = 10;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
+                    calculateddeliveryCost[(props.id - 2)*3 + 1] = 20;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
+                    calculateddeliveryCost[(props.id - 2)*3 + 1] = 40;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
+                    calculateddeliveryCost[(props.id - 2)*3 + 1] = 80;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
+                    calculateddeliveryCost[(props.id - 2)*3 + 1] = 100;
+                }    
+            }else{                    
+                if(parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 6300){
+                    calculateddeliveryCosten[(props.id - 10)*3 + 1] = 10;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 10000) {
+                    calculateddeliveryCosten[(props.id - 10)*3 + 1] = 20;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 30000){
+                    calculateddeliveryCosten[(props.id - 10)*3 + 1] = 40;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 500000){
+                    calculateddeliveryCosten[(props.id - 10)*3 + 1] = 80;
+                }else if (parseInt(height,10)*parseInt(width,10)*parseInt(len,10) <= 1000000){
+                    calculateddeliveryCosten[(props.id - 10)*3 + 1] = 100;
+                }    
+            }
+            
         }
-        console.log("cost with or without pack");
-        setPack(calculateddeliveryCost[(props.id - 2)*3 + 1]);
+        if(props.corInpArr === "correctInput"){ 
+            setPack(calculateddeliveryCost[(props.id - 2)*3 + 1]);
+        }else{                    
+            setPack(calculateddeliveryCosten[(props.id - 10)*3 + 1]);
+        }
         veryfyHandler();
-        console.log("the pack "+pack);
-        console.log(calculateddeliveryCost[(props.id - 2)*3 + 1]);
     }
     useEffect(() => {
         handleClick();
@@ -172,17 +219,31 @@ const Place = (props) =>{
     function veryfyHandler(){
         for(var i = 0; i < correctInputPlace.length; i++){
             if(correctInputPlace[i] === false){
-                correctInput[props.id] = false;
+                if(props.corInpArr === "correctInput"){                    
+                    correctInput[props.id] = false;
+                }else{                    
+                    correctInputEn[props.id] = false;
+                }
                 break;
             }
             else{
-                correctInput[props.id] = true;
+                if(props.corInpArr === "correctInput"){                    
+                    correctInput[props.id] = true;
+                }else{                    
+                    correctInputEn[props.id] = true;
+                }
             }
         }
-        if(correctInput[props.id] === true){
-            calculateddeliveryCost[(props.id - 2)*3] = ((parseInt(weight,10)*2 * parseInt(quantity,10) + parseInt(cost,10)+0.001));
-            console.log("the fuck "+pack);
+        if(props.corInpArr === "correctInput"){                    
+            if(correctInput[props.id] === true){
+                calculateddeliveryCost[(props.id - 2)*3] = ((parseInt(weight,10)*2 * parseInt(quantity,10) + parseInt(cost,10)+0.001));
+            }
+        }else{    
+            if(correctInputEn[props.id] === true){
+                calculateddeliveryCosten[(props.id - 10)*3] = ((parseInt(weight,10)*2 * parseInt(quantity,10) + parseInt(cost,10)+0.001));
+            }                
         }
+        
     }
     const checkPack= useRef();
     const selectedType = useRef();

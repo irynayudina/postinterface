@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookSquare, faInstagramSquare, faLinkedin, faTelegramPlane, faTwitterSquare, faYoutubeSquare } from '@fortawesome/free-brands-svg-icons';
 const Footer = () => {
@@ -16,6 +17,7 @@ const Footer = () => {
                 <p className="small clickable">Питання</p>
                 <p className="small clickable">Конфіденційність</p>
                 <p className="small clickable">Компенсація</p>
+                <Link to={"/userpage"} style={{ textDecoration: 'none' }}><p>profile</p></Link>
             </div>
             <div className="contacts">
                 <p className="small clickable">+380123456789</p>
