@@ -605,6 +605,9 @@ display: inline-block;
 .user{
     padding: 30px;
 }
+.user h2{
+    display: inline-block;
+}
 .vline{
     background-color: #66FF01;
     width: 2px;
