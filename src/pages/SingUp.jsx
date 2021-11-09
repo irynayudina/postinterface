@@ -11,7 +11,7 @@ const SignUp = () => {
     const [namebgc, setNamebgc] = useState("white");
     const [typeErrorname, setTypeErrorname] = useState('');
     function nameverifyer(){ 
-        if(name.match(/^[a-zA-Z]+$/)){
+        if(name.match(/^[А-ЯЄІЇа-яєії]+$/)){
             correctSignupInput[0]= true;    
             setTypeErrorname('');
             setNamebgc("white");
@@ -24,12 +24,13 @@ const SignUp = () => {
     }
     useEffect(() => {
         nameverifyer();changeLinks();
+        localStorage.setItem('name', name);
     }, [name]);
     const [surname, setSurname] = useState('');    
     const [surnamebgc, setSurnamebgc] = useState("white");
     const [typeErrorsurname, setTypeErrorsurname] = useState('');
     function surnameverifyer(){ 
-        if(surname.match(/^[a-zA-Z]+$/)){
+        if(surname.match(/^[А-ЯЄІЇа-яєії]+$/)){
             correctSignupInput[1]= true;    
             setTypeErrorsurname('');
             setSurnamebgc("white");
@@ -42,12 +43,13 @@ const SignUp = () => {
     }
     useEffect(() => {
         surnameverifyer();changeLinks();
-    }, [surname]); 
+        localStorage.setItem('surname', surname);
+    }, [surname]);
     const [forename, setForename] = useState('');    
     const [forenamebgc, setForenamebgc] = useState("white");
     const [typeErrorforename, setTypeErrorforename] = useState('');
     function forenameverifyer(){ 
-        if(forename.match(/^[a-zA-Z]+$/)){
+        if(forename.match(/^[А-ЯЄІЇа-яєії]+$/)){
             correctSignupInput[2]= true;    
             setTypeErrorforename('');
             setForenamebgc("white");
@@ -60,6 +62,7 @@ const SignUp = () => {
     }
     useEffect(() => {
         forenameverifyer();changeLinks();
+        localStorage.setItem('forename', forename);
     }, [forename]); 
     const [phone, setPhone] = useState('');    
     const [phonebgc, setPhonebgc] = useState("white");
@@ -78,6 +81,7 @@ const SignUp = () => {
     }
     useEffect(() => {
         phoneverifyer();changeLinks();
+        localStorage.setItem('phone', phone);
     }, [phone]); 
     const [email, setEmail] = useState('');    
     const [emailbgc, setEmailgc] = useState("white");
@@ -96,6 +100,7 @@ const SignUp = () => {
     }
     useEffect(() => {
         emailverifyer();changeLinks();
+        localStorage.setItem('email', email);
     }, [email]); 
     const [password, setPassword] = useState('');    
     const [passwordbgc, setPasswordbgc] = useState("white");
@@ -114,6 +119,7 @@ const SignUp = () => {
     }
     useEffect(() => {
         passwordverifyer();changeLinks();
+        localStorage.setItem('password', password);
     }, [password]); 
     const [repeatpassword, setRepeatpassword] = useState('');    
     const [repeatpasswordbgc, setRepeatpasswordbgc] = useState("white");
@@ -138,6 +144,9 @@ const SignUp = () => {
     function changeLinks(){
         if(correctSignupInput[0] === true && correctSignupInput[1] === true && correctSignupInput[2] === true && correctSignupInput[3] === true && correctSignupInput[4] === true && correctSignupInput[5] === true && correctSignupInput[6] === true){
             setLinks("/userpage");
+            localStorage.setItem('loged', 1);
+        }else{
+            localStorage.setItem('loged', 0);
         }
     }
     return(

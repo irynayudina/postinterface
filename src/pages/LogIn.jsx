@@ -14,6 +14,11 @@ const LogIn = () => {
             correctLoginInput[0]= true;    
             setTypeErrorid('');
             setIdentifierbgc("white");
+            if(identifier !== localStorage.getItem('email') || identifier !== localStorage.getItem('phone')){
+                correctLoginInput[0]= false; 
+                setTypeErrorid('Ідентиифікатор не існує');
+                setIdentifierbgc("#f5c1c5");
+            }
         }
         else{
             correctLoginInput[0]= false; 
@@ -32,6 +37,11 @@ const LogIn = () => {
             correctLoginInput[1]= true;    
             setTypeErrorps('');
             setPasswordbgc("white");
+            if(password !== localStorage.getItem('password')){
+                correctLoginInput[1]= false; 
+                setTypeErrorps('Неправильний пароль');
+                setPasswordbgc("#f5c1c5");
+            }
         }
         else{
             correctLoginInput[1]= false; 
@@ -46,7 +56,11 @@ const LogIn = () => {
     function changeLink(){
         if(correctLoginInput[0] === true && correctLoginInput[1] === true){
             setLink("/userpage");
+            localStorage.setItem('loged', 1);
+        }else{
+            localStorage.setItem('loged', 0);
         }
+        
     }
     return(
         <div className="the-root-body"><div className="log-in">

@@ -15,6 +15,7 @@ import BotMenue from './components/BotMenue';
 import Footer from './components/Footer';
 import './styles/App.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import Enlist from './pages/EnList';
 function App() {
   return (
     <BrowserRouter >  
@@ -84,6 +85,12 @@ function App() {
     <Route path="/userpage">
     <Header/>
     <Userpage />
+    <BotMenue />
+    <Footer />
+    </Route>
+    <Route path="/enlist">
+    <Header/>
+    <Enlist />
     <BotMenue />
     <Footer />
     </Route>

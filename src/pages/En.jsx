@@ -1,13 +1,14 @@
 import React from 'react'
 import { useRef } from 'react';
 import {useEffect} from 'react';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Button from '../components/Button';
 import Place from '../components/Place';
+import userSide from '../components/userside';
+import Functions from '../components/userFunctions';
 import {calculateddeliveryCosten, outerCalculate} from '../globals/CalculateddeliveryCost';
-import correctInput from '../globals/CorrectInput';
 import correctInputEn from '../globals/corinpen';
+import {ENs} from '../globals/ens';
 const En = () => {    
     const [costShow, setCostShow] = useState(0);   
 
@@ -15,7 +16,7 @@ const En = () => {
     const [vnbgc, setVnbgc] = useState("white");
     const [typeErrorvn, setTypeErrorvn] = useState('');
     function vnverifyer(){ 
-        if(vn.match(/^[a-zA-Z]+$/)){
+        if(vn.match(/^[А-ЯЄІЇа-яєії]+$/)){
             correctInputEn[0]= true;    
             setTypeErrorvn('');
             setVnbgc("white");
@@ -34,7 +35,7 @@ const En = () => {
     const [vnnbgc, setVnnbgc] = useState("white");
     const [typeErrorvnn, setTypeErrorvnn] = useState('');
     function vnnverifyer(){ 
-        if(vnn.match(/^[a-zA-Z]+$/)){
+        if(vnn.match(/^[А-ЯЄІЇа-яєії]+$/)){
             correctInputEn[1]= true;    
             setTypeErrorvnn('');
             setVnnbgc("white");
@@ -53,7 +54,7 @@ const En = () => {
     const [vnnnbgc, setVnnnbgc] = useState("white");
     const [typeErrorvnnn, setTypeErrorvnnn] = useState('');
     function vnnnverifyer(){ 
-        if(vnnn.match(/^[a-zA-Z]+$/)){
+        if(vnnn.match(/^[А-ЯЄІЇа-яєії]+$/)){
             correctInputEn[2]= true;    
             setTypeErrorvnnn('');
             setVnnnbgc("white");
@@ -91,7 +92,7 @@ const En = () => {
     const [vnbgc2, setVnbgc2] = useState("white");
     const [typeErrorvn2, setTypeErrorvn2] = useState('');
     function vnverifyer2(){ 
-        if(vn2.match(/^[a-zA-Z]+$/)){
+        if(vn2.match(/^[А-ЯЄІЇа-яєії]+$/)){
             correctInputEn[4]= true;    
             setTypeErrorvn2('');
             setVnbgc2("white");
@@ -110,7 +111,7 @@ const En = () => {
     const [vnnbgc2, setVnnbgc2] = useState("white");
     const [typeErrorvnn2, setTypeErrorvnn2] = useState('');
     function vnnverifyer2(){ 
-        if(vnn2.match(/^[a-zA-Z]+$/)){
+        if(vnn2.match(/^[А-ЯЄІЇа-яєії]+$/)){
             correctInputEn[5]= true;    
             setTypeErrorvnn2('');
             setVnnbgc2("white");
@@ -129,7 +130,7 @@ const En = () => {
     const [vnnnbgc2, setVnnnbgc2] = useState("white");
     const [typeErrorvnnn2, setTypeErrorvnnn2] = useState('');
     function vnnnverifyer2(){ 
-        if(vnnn2.match(/^[a-zA-Z]+$/)){
+        if(vnnn2.match(/^[А-ЯЄІЇа-яєії]+$/)){
             correctInputEn[6]= true;    
             setTypeErrorvnnn2('');
             setVnnnbgc2("white");
@@ -167,7 +168,7 @@ const En = () => {
     const [commentbgc, setCommentgc] = useState("white");
     const [typeErrorcomment, setTypeErrorcomment] = useState('');
     function commentverifyer(){ 
-        if(comment.match(/^[0-9a-zA-Z\,\.\-\#\(\)]+$/) || comment.length === 0){
+        if(comment.match(/^[0-9А-ЯЄІЇа-яєіїA-Za-z\,\.\-\#\(\)]+$/) || comment.length === 0){
             correctInputEn[8]= true;    
             setTypeErrorcomment('');
             setCommentgc("white");
@@ -228,8 +229,23 @@ const En = () => {
             if(thefinalcost > 40){                
                 setCostShow(thefinalcost);
             } else{ setCostShow(40);}
-            alert("Номер вашої накладної: "+50001478940000+costShow);
+            
         }else{setCostShow(0);}
+        if(correctFormEn === true){
+            let text1 = 50001478940000+costShow;
+            const date1 = new Date();
+            alert("Номер вашої накладної: "+50001478940000+costShow.toFixed(0));
+            let a =0;
+            for(let j = 0; j < ENs.length; j++){
+                if(ENs[j].text !== text1){
+                    a++;                    
+                }
+            }
+            if(a===ENs.length){
+                ENs.push({text: text1, time:date1});
+            }
+            
+        }        
         console.log("form is correct: "+ correctFormEn);
         console.log({costShow});
     }
@@ -325,29 +341,7 @@ const En = () => {
                     </div>
                 </div>
                 <div className="hline"></div>
-                <div className="functions">
-                    <div className="funcgroup">                       
-                        <div className="fheader"><h2>Мої відправлення</h2></div>
-                        <p className="clickable">Отримані</p>
-                        <p className="clickable">Надіслані</p>
-                        <p className="clickable">В дорозі</p>
-                    </div>  
-                    <div className="funcgroup">                       
-                        <div className="fheader"><h2>Оплата</h2></div>
-                        <p className="clickable">Сплатити за послуги</p>
-                        <p className="clickable">Дані платника</p>
-                    </div>
-                    <div className="funcgroup">                       
-                        <div className="fheader"><h2>Електронна накладна</h2></div>
-                        <Link to={"/en"} style={{ textDecoration: 'none' }}><p className="clickable">Створити ЕН</p></Link>
-                        <p className="clickable">Список ЕН</p>
-                    </div>
-                    <div className="funcgroup">                       
-                        <div className="fheader"><h2>Налаштування</h2></div> 
-                        <p className="clickable">Вийти</p>
-                        <p className="clickable">Змінити данні</p>
-                    </div>               
-                </div>
+                <Functions />
             </div>
             <div className="vline"></div>
             <div className="view">
