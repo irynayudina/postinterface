@@ -13,15 +13,20 @@ import Userpage from './pages/Userpage';
 import Header from "./components/Header";
 import BotMenue from './components/BotMenue';
 import Footer from './components/Footer';
+import Reference from './pages/reference';
 import './styles/App.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Enlist from './pages/EnList';
 function App() {
   return (
     <BrowserRouter >  
-    <Switch>
+    {/* <Switch>
       <Redirect to="/home" />
-    </Switch>
+    </Switch> */}
+    <Route path='/dovidka' component={() => { 
+     window.location.href = "D:/CommonPersonal/interfaces/post/src/pages"; 
+     return null;
+    }}/>
     <Route path="/home">
     <Header/>
     <Home />
@@ -91,6 +96,12 @@ function App() {
     <Route path="/enlist">
     <Header/>
     <Enlist />
+    <BotMenue />
+    <Footer />
+    </Route>
+    <Route path="/reference">
+    <Header/>
+    <Reference />
     <BotMenue />
     <Footer />
     </Route>

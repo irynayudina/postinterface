@@ -12,7 +12,7 @@ const Place = (props) =>{
     const [weight, setWeight] = useState(''); 
     const [weightbgc, setWeightbgc] = useState("white");
     function weightverifyer(){
-        if(weight.match(/^[0-9]+\.+[0-9]+$/) || weight.match(/^[0-9]+$/) && weight <= 30){
+        if((weight.match(/^[0-9]+$/)|| weight.match(/^\d+(?:\.\d{1,2})?$/)) && weight <= 30){
             correctInputPlace[0] = true;
             setWeightbgc("white");
         }
@@ -29,7 +29,7 @@ const Place = (props) =>{
     const [width, setWidth] = useState('');
     const [widthbgc, setWidthbgc] = useState("white");
     function widthverifyer(){
-        if(width.match(/^[0-9]+\.+[0-9]+$/) || width.match(/^[0-9]+$/) && width <= 100){
+        if((width.match(/^[0-9]+$/) || width.match(/^\d+(?:\.\d{1,2})?$/)) && width <= 100){
             correctInputPlace[1] = true;
             setWidthbgc("white");
         }
@@ -46,7 +46,7 @@ const Place = (props) =>{
     const [len, setLen] = useState('');
     const [lenbgc, setLenbgc] = useState("white");
     function lenverifyer(){
-        if(len.match(/^[0-9]+\.+[0-9]+$/) || len.match(/^[0-9]+$/) && len <= 100){
+        if((len.match(/^[0-9]+$/)|| len.match(/^\d+(?:\.\d{1,2})?$/)) && len <= 100){
             correctInputPlace[2] = true;
             setLenbgc("white");
         }
@@ -63,7 +63,7 @@ const Place = (props) =>{
     const [height, setHeight] = useState('');
     const [heightbgc, setHeightbgc] = useState("white");
     function heightverifyer(){
-        if(height.match(/^[0-9]+\.+[0-9]+$/) || height.match(/^[0-9]+$/) && height <= 100){
+        if((height.match(/^[0-9]+$/)|| height.match(/^\d+(?:\.\d{1,2})?$/)) && height <= 100){
             correctInputPlace[3] = true;
             setHeightbgc("white");
         }
@@ -80,7 +80,7 @@ const Place = (props) =>{
     const [quantity, setQuantity] = useState('');
     const [quantitybgc, setQuantitybgc] = useState("white");
     function quantityverifyer(){
-        if(quantity.match(/^[0-9]+\.+[0-9]+$/) || quantity.match(/^[0-9]+$/) && quantity <= 10){
+        if(quantity.match(/^[0-9]+$/) && quantity <= 10){
             correctInputPlace[4] = true;
             setQuantitybgc("white");
         }
@@ -97,7 +97,7 @@ const Place = (props) =>{
     const [cost, setCost] = useState('');
     const [costbgc, setCostbgc] = useState("white");
     function costverifyer(){
-        if(cost.match(/^[0-9]+\.+[0-9]+$/) || cost.match(/^[0-9]+$/) && cost <= 50000){
+        if((cost.match(/^[0-9]+$/)|| cost.match(/^\d+(?:\.\d{1,2})?$/)) && cost <= 50000){
             correctInputPlace[5] = true;
             setCostbgc("white");
         }

@@ -14,10 +14,10 @@ const Footer = () => {
             <FontAwesomeIcon icon={faTelegramPlane} color="black" className="clickable" />
             </div>
             <div className="questions">
-                <p className="small clickable">Питання</p>
+                <Link to="/reference" style={{ textDecoration: 'none' }}><p className="small clickable" style={{color:'black'}}>Довідка</p></Link>
                 <p className="small clickable">Конфіденційність</p>
                 <p className="small clickable">Компенсація</p>
-                <Link to={"/userpage"} style={{ textDecoration: 'none' }}><p>profile</p></Link>
+                {/* <Link to={"/userpage"} style={{ textDecoration: 'none' }}><p>profile</p></Link> */}
             </div>
             <div className="contacts">
                 <p className="small clickable">+380123456789</p>

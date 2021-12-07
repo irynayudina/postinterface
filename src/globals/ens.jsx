@@ -1,5 +1,5 @@
 // import { useState } from 'react';
-let ENs = [{text:"1", time:"0"}];
+let ENs = [];
 // const Ens = () => {
 //     const [ENs, setENs] = useState();
 //     return(

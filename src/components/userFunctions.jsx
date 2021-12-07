@@ -20,7 +20,7 @@ const Functions = () => {
                     </div>
                     <div className="funcgroup">                       
                         <div className="fheader"><h2>Налаштування</h2></div> 
-                        <p className="clickable">Вийти</p>
+                        <Link to={"/home"} style={{ textDecoration: 'none' }}><p className="clickable" onClick={()=>localStorage.setItem('loged', 0)}>Вийти</p></Link>
                         <p className="clickable">Змінити данні</p>
                     </div>               
                 </div>);};

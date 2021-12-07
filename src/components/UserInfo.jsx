@@ -4,7 +4,7 @@ const UserInfo = () => {
     if(localStorage.getItem('loged') === "1"){
         return(
             <div className="user">
-                    <h2>{localStorage.getItem('surname')} </h2><h2>{localStorage.getItem('name') }</h2><h2>{localStorage.getItem('forename')}</h2>
+                    <h2>{localStorage.getItem('surname') + " "} &nbsp;</h2><h2>{localStorage.getItem('name')  + " "}&nbsp;</h2><h2>{localStorage.getItem('forename')}</h2>
                     <div className="cont">
                         <p className="small">{localStorage.getItem('email')}</p>
                         <p className="small">{localStorage.getItem('phone')}</p>

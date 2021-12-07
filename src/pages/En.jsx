@@ -9,6 +9,7 @@ import Functions from '../components/userFunctions';
 import {calculateddeliveryCosten, outerCalculate} from '../globals/CalculateddeliveryCost';
 import correctInputEn from '../globals/corinpen';
 import {ENs} from '../globals/ens';
+import UserInfo from '../components/UserInfo';
 const En = () => {    
     const [costShow, setCostShow] = useState(0);   
 
@@ -16,7 +17,7 @@ const En = () => {
     const [vnbgc, setVnbgc] = useState("white");
     const [typeErrorvn, setTypeErrorvn] = useState('');
     function vnverifyer(){ 
-        if(vn.match(/^[А-ЯЄІЇа-яєії]+$/)){
+        if(vn.match(/^[А-ЯЄІЇа-яєії]+$/) && vn.length <=100){
             correctInputEn[0]= true;    
             setTypeErrorvn('');
             setVnbgc("white");
@@ -35,7 +36,7 @@ const En = () => {
     const [vnnbgc, setVnnbgc] = useState("white");
     const [typeErrorvnn, setTypeErrorvnn] = useState('');
     function vnnverifyer(){ 
-        if(vnn.match(/^[А-ЯЄІЇа-яєії]+$/)){
+        if(vnn.match(/^[А-ЯЄІЇа-яєії]+$/) && vnn.length <=100){
             correctInputEn[1]= true;    
             setTypeErrorvnn('');
             setVnnbgc("white");
@@ -54,7 +55,7 @@ const En = () => {
     const [vnnnbgc, setVnnnbgc] = useState("white");
     const [typeErrorvnnn, setTypeErrorvnnn] = useState('');
     function vnnnverifyer(){ 
-        if(vnnn.match(/^[А-ЯЄІЇа-яєії]+$/)){
+        if(vnnn.match(/^[А-ЯЄІЇа-яєії]+$/) && vnnn.length <=100){
             correctInputEn[2]= true;    
             setTypeErrorvnnn('');
             setVnnnbgc("white");
@@ -92,7 +93,7 @@ const En = () => {
     const [vnbgc2, setVnbgc2] = useState("white");
     const [typeErrorvn2, setTypeErrorvn2] = useState('');
     function vnverifyer2(){ 
-        if(vn2.match(/^[А-ЯЄІЇа-яєії]+$/)){
+        if(vn2.match(/^[А-ЯЄІЇа-яєії]+$/) && vn2.length <=100){
             correctInputEn[4]= true;    
             setTypeErrorvn2('');
             setVnbgc2("white");
@@ -111,7 +112,7 @@ const En = () => {
     const [vnnbgc2, setVnnbgc2] = useState("white");
     const [typeErrorvnn2, setTypeErrorvnn2] = useState('');
     function vnnverifyer2(){ 
-        if(vnn2.match(/^[А-ЯЄІЇа-яєії]+$/)){
+        if(vnn2.match(/^[А-ЯЄІЇа-яєії]+$/) && vnn2.length <=100){
             correctInputEn[5]= true;    
             setTypeErrorvnn2('');
             setVnnbgc2("white");
@@ -130,7 +131,7 @@ const En = () => {
     const [vnnnbgc2, setVnnnbgc2] = useState("white");
     const [typeErrorvnnn2, setTypeErrorvnnn2] = useState('');
     function vnnnverifyer2(){ 
-        if(vnnn2.match(/^[А-ЯЄІЇа-яєії]+$/)){
+        if(vnnn2.match(/^[А-ЯЄІЇа-яєії]+$/) && vnnn2.length <=100){
             correctInputEn[6]= true;    
             setTypeErrorvnnn2('');
             setVnnnbgc2("white");
@@ -168,7 +169,7 @@ const En = () => {
     const [commentbgc, setCommentgc] = useState("white");
     const [typeErrorcomment, setTypeErrorcomment] = useState('');
     function commentverifyer(){ 
-        if(comment.match(/^[0-9А-ЯЄІЇа-яєіїA-Za-z\,\.\-\#\(\)]+$/) || comment.length === 0){
+        if((comment.match(/^[0-9А-ЯЄІЇа-яєіїA-Za-z\,\.\-\#\(\)]+$/) && vn.length <=100) || comment.length === 0){
             correctInputEn[8]= true;    
             setTypeErrorcomment('');
             setCommentgc("white");
@@ -187,7 +188,7 @@ const En = () => {
     const [pluspaybgc, setPluspaybgc] = useState("white");
     const [typeErrorpluspay, setTypeErrorpluspay] = useState('');
     function pluspayverifyer(){ 
-        if(pluspay.match(/^[0-9]+\.+[0-9]+$/) || pluspay.match(/^[0-9]+$/)  && pluspay <= 50000){
+        if((pluspay.match(/^[0-9]+$/) || pluspay.match(/^\d+(?:\.\d{1,2})?$/))  && pluspay <= 50000){
             correctInputEn[9]= true;    
             setTypeErrorpluspay('');
             setPluspaybgc("white");
@@ -333,13 +334,7 @@ const En = () => {
     return(
         <div className="the-root-body"><div className="userpage" >
             <div className="side">
-                <div className="user">
-                    <h2>Прізвище Ім’я</h2>
-                    <div className="cont">
-                        <p className="small">useremail@gmail.com</p>
-                        <p className="small">+38**********</p>
-                    </div>
-                </div>
+                <UserInfo />
                 <div className="hline"></div>
                 <Functions />
             </div>
@@ -355,7 +350,7 @@ const En = () => {
                     <input type="text" placeholder="По батькові" id="forenamev" className="namefield" value={vnnn} onChange={event => setVnnn(event.target.value)} style={{backgroundColor: vnnnbgc}}/><p className="erroren" style={{top: "155px", left: "980px"}}>{typeErrorvnnn}</p>
 
                     <label htmlFor=""><p>тел.</p></label>
-                    <input type="text" id="phonev" className="phonefield" value={tel} onChange={event => setTel(event.target.value)} style={{backgroundColor: telbgc}}/><p className="erroren" style={{top: "155px", left: "1145px"}}>{typeErrortel}</p><br />
+                    <input placeholder="+380681497779" type="text" id="phonev" className="phonefield" value={tel} onChange={event => setTel(event.target.value)} style={{backgroundColor: telbgc}}/><p className="erroren" style={{top: "155px", left: "1145px"}}>{typeErrortel}</p><br />
                     
                     <label htmlFor=""><p>Відділення місто</p></label>
                     <select onClick={handleCf } ref={selectedCf} onChange={event => setCf(event.target.value)} name="select" className="fromCity"> 
@@ -384,7 +379,7 @@ const En = () => {
                     <input type="text" placeholder="По батькові" id="forenamev" className="namefield" value={vnnn2} onChange={event => setVnnn2(event.target.value)} style={{backgroundColor: vnnnbgc2}}/><p className="erroren" style={{top: "238px", left: "980px"}}>{typeErrorvnnn2}</p>
 
                     <label htmlFor=""><p>тел.</p></label>
-                    <input type="text" id="phonev" className="phonefield" value={tel2} onChange={event => setTel2(event.target.value)} style={{backgroundColor: telbgc2}}/><p className="erroren" style={{top: "238px", left: "1143px"}}>{typeErrortel2}</p><br />
+                    <input placeholder="+380681497779" type="text" id="phonev" className="phonefield" value={tel2} onChange={event => setTel2(event.target.value)} style={{backgroundColor: telbgc2}}/><p className="erroren" style={{top: "238px", left: "1143px"}}>{typeErrortel2}</p><br />
                     
                     <label htmlFor=""><p>Відділення місто</p></label>
                     <select onClick={handleCt } ref={selectedCt} onChange={event => setCt(event.target.value)} name="select" className="fromCity"> 
@@ -410,9 +405,9 @@ const En = () => {
                     places.map((post)=><Place id={post.id} remove={removePlace} dis={post.dis} corInpArr={post.corInpArr}/>)
                     }
                     <p className="clickable" onClick={addPlace}>+ додати місце</p><br />
-                    <input type="checkbox"  id="pack" ref={checkKeep} onClick={handleKeep} checked={checkedkeep} className="keep"/><p>Зберігання протягом 5 днів</p><br />
+                    <p><input type="checkbox"  id="pack" ref={checkKeep} onClick={handleKeep} checked={checkedkeep} className="keep"/>Зберігання до затребування (протягом 5 днів - безкоштовно, далі +1% до 30 днів включно)</p><br />
                     <label htmlFor=""><p>Вартість доставки (автоматично по характеристикам)</p></label>
-                    <input className="en-cost" value={costShow.toFixed(0)} disabled="true" /><p> грн.</p><br />
+                    <input className="en-cost" value={costShow.toFixed(1)} disabled="true" /><p> грн.</p><br />
                     <input type="checkbox"/><p>Сплатити за отримувача</p><br />                   
 
                     <label htmlFor=""><p>Накладений платіж</p><br />

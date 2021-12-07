@@ -49,7 +49,7 @@ p.small{
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #0C3823; 
+    background: #026b02; /*0C3823 013b01*/
   }
 .header {
     position: fixed;
@@ -63,8 +63,19 @@ p.small{
     box-sizing: border-box;
     box-shadow: inset 0px 6px 6px rgba(0, 0, 0, 0.25);
 }
+html {
+    scroll-padding-top: 70px; /* height of sticky header */
+  }
 .the-root-body{
     padding-top: 69px;
+}
+img{
+    width: auto;
+    height: 30px;
+}
+.bigimg{
+    width: auto;
+    height: 300px; 
 }
 .header-log{
     height: 69px;
@@ -183,6 +194,51 @@ p.small{
     background-color: white;
     transition: all 0.4s;
 }
+.refwrap{
+    position: relative;
+    width: 0;
+    height: 0;
+}
+.refHover{
+    font-size: 30px;
+    font-weight: 900;
+    position: absolute;
+}
+#calcRef{
+    top: -30px;
+    left: 500px;
+}
+#i1ref{
+    top: 60px;
+    left: 300px;
+}
+#i2ref{
+    top: 60px;
+    left: 440px;
+}
+#i3ref{
+    top: 60px;
+    left: 620px;
+}
+#i4ref{
+    top: 60px;
+    left: 820px;
+}
+#i5ref{
+    top: 60px;
+    left: 1020px;
+}
+#i6ref{
+    top: 60px;
+    left: 1380px;
+}
+#i7ref{
+    top: 60px;
+    left: 1450px;
+}
+#fieldref{
+
+}
 .footer {
     position: relative;
     top: 25px;
@@ -293,6 +349,7 @@ p.small{
     margin-bottom: 15px;
     margin-top: 5px;
 }
+
 .sign-up{
     padding-top: 20px;
     min-height: 550px;
@@ -648,4 +705,22 @@ display: inline-block;
 }
 .fheader h2{
     margin: 0;
+}
+.i{
+    position: absolute !important;
+    top: 5px !important; 
+    left: 365px;
+    width: 33px;
+    font-size: 30px;
+}
+.wrapperinput{
+    top: 0 !important;
+    width: 360px;
+    border: #FFFFFF;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+.agree{
+    height: 15px !important;
+    width: 15px !important;
 }

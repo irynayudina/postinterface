@@ -26,10 +26,7 @@ const Calculator = () => {
                 placecost = (calculateddeliveryCost[i]+calculateddeliveryCost[i+1])*calculateddeliveryCost[i+2];
                 thefinalcost += placecost;
             }
-            if(checkedkeep){
-                outerCalculate[1] = thefinalcost/10;
-                thefinalcost += outerCalculate[1];
-            }
+            
             let distance = Math.abs( outerCalculate[0] - outerCalculate[2]);
             thefinalcost = thefinalcost + (thefinalcost * distance * 0.1);
             if(thefinalcost > 40){                
@@ -58,15 +55,7 @@ const Calculator = () => {
             }
         }
     }
-    const checkKeep = useRef();
-    const [checkedkeep, setcheckedkeep] = useState(false);
-    function handleKeep(){
-        if(checkKeep.current.checked){setcheckedkeep(true)}else{setcheckedkeep(false)}
-        
-    }
-    useEffect(() => {
-        handleKeep();
-    }, [checkedkeep]);
+   
     const [cf, setCf] = useState(''); 
     const [ct, setCt] = useState(''); 
     const selectedCf = useRef();
@@ -124,7 +113,7 @@ const Calculator = () => {
         <div className="plain-form">
             <h2>Калькулятор вартості доставки</h2>
             <form action="">
-                <label htmlFor="">Місто</label>
+                <label htmlFor="">Місто відправки</label>
                 <select onClick={handleCf } ref={selectedCf} onChange={event => setCf(event.target.value)} name="select" className="fromCity"> 
                 <option value="vin">Вінниця</option>
                 <option value="dni" selected>Дніпро</option>
@@ -137,7 +126,7 @@ const Calculator = () => {
                 <option value="pol">Полтава</option>
                 <option value="har">Харків</option>
                 </select>                
-                <label htmlFor="">Місто</label>
+                <label htmlFor="">Місто отримання</label>
                 <select onClick={handleCt } ref={selectedCt} onChange={event => setCt(event.target.value)} name="select" className="fromCity"> 
                 <option value="vin">Вінниця</option>
                 <option value="dni" selected>Дніпро</option>
@@ -154,9 +143,8 @@ const Calculator = () => {
                     places.map((post)=><Place id={post.id} remove={removePlace} dis={post.dis} corInpArr={post.corInpArr}/>)
                 }
                 <p className="clickable" onClick={addPlace}>+ додати місце</p><br />
-                <input type="checkbox"  id="pack" ref={checkKeep} onClick={handleKeep} checked={checkedkeep} className="keep"/><p>Зберігання протягом 5 днів</p>
                 <div className="botCalc">                     
-                    <h2>Вартість: </h2><input className="contedCost" value={costShow.toFixed(0)} disabled="true" /><p> грн.</p>
+                    <h2>Вартість: </h2><input className="contedCost" value={costShow.toFixed(1)} disabled="true" /><p> грн.</p>
                 </div>
                 <Button name={"Вирахувати вартість"} onClick={veryfyHandler}/>                      
             </form>
